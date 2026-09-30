@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notely — Your best notes, shared with the whole campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 26 26" fill="none"><path d="M4 2h14l4 4v18H4V2z" stroke="#1B2A4A" stroke-width="1.6" fill="#F7F6F1"/><path d="M18 2v4h4" stroke="#1B2A4A" stroke-width="1.6" fill="none"/><path d="M8 12h10M8 16h7" stroke="#1B2A4A" stroke-width="1.4"/></svg>
+      Notely
+    </a>
+    <nav class="nav-links">
+      <a href="explore.html" data-nav="explore">Explore</a>
+      <a href="upload.html" data-nav="upload">Upload</a>
+      <a href="library.html" data-nav="library">My Library</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="auth.html" class="btn btn-outline btn-sm">Sign in</a>
+      <a href="auth.html?mode=signup" class="btn btn-primary btn-sm">Join free</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="nav-drawer">
+    <a href="explore.html">Explore</a>
+    <a href="upload.html">Upload</a>
+    <a href="library.html">My Library</a>
+    <a href="auth.html">Sign in</a>
+    <a href="auth.html?mode=signup">Join free</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1>Your best notes, <span class="hl">shared with the whole campus.</span></h1>
+        <p class="lede">Upload your PDF notes, let classmates discover and download them, and connect directly with the students who made them.</p>
+        <div class="hero-cta">
+          <a href="upload.html" class="btn btn-primary">Upload a note</a>
+          <a href="explore.html" class="btn btn-outline">Browse notes</a>
+        </div>
+      </div>
+      <div class="card-stack">
+        <div class="pushpin"></div>
+        <article class="index-card">
+          <span class="note-tag tag-navy">CSE</span>
+          <h3>Trees &amp; Graphs — Unit 3</h3>
+          <div class="card-meta">CS301 &middot; 842 downloads</div>
+        </article>
+        <article class="index-card">
+          <span class="note-tag tag-moss">Mathematics</span>
+          <h3>Linear Algebra — Eigenvalues</h3>
+          <div class="card-meta">MA202 &middot; 705 downloads</div>
+        </article>
+        <article class="index-card">
+          <span class="note-tag tag-brick">Mechanical</span>
+          <h3>Thermodynamics — Cycles</h3>
+          <div class="card-meta">ME201 &middot; 611 downloads</div>
+        </article>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="stats-ledger">
+        <div class="stat"><span class="num" data-target="1240">0</span><span class="label">Notes shared</span></div>
+        <div class="stat"><span class="num" data-target="3860">0</span><span class="label">Students</span></div>
+        <div class="stat"><span class="num" data-target="18400">0</span><span class="label">Downloads</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head">
+      <div>
+        <h2>Trending notes</h2>
+        <p>What classmates are downloading this week.</p>
+      </div>
+      <a href="explore.html" class="section-link">View all</a>
+    </div>
+    <div class="notes-grid" id="trending-grid"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-row">
+    <div class="logo" style="font-size:1.05rem;">
+      <svg class="logo-mark" width="20" height="20" viewBox="0 0 26 26" fill="none"><path d="M4 2h14l4 4v18H4V2z" stroke="#1B2A4A" stroke-width="1.6" fill="#F7F6F1"/><path d="M8 12h10M8 16h7" stroke="#1B2A4A" stroke-width="1.4"/></svg>
+      Notely
+    </div>
+    <nav class="footer-links">
+      <a href="explore.html">Explore</a>
+      <a href="upload.html">Upload</a>
+      <a href="library.html">My Library</a>
+    </nav>
+    <span class="footer-note">&copy; <span class="js-year"></span> Notely. Built by students, for students.</span>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/render.js"></script>
+<script src="js/main.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

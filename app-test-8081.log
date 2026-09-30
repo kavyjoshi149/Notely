@@ -1,0 +1,72 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< com.notebook:shareApp >------------------------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.1.1:run (default-cli) > test-compile @ shareApp >>>
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ shareApp ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 7 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ shareApp ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ shareApp ---
+[INFO] skip non existing resourceDirectory C:\Users\WELCOME\Desktop\kavy\Projects\shareApp\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ shareApp ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.1.1:run (default-cli) < test-compile @ shareApp <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.1.1:run (default-cli) @ shareApp ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-21T01:00:22.549+05:30  INFO 20188 --- [shareApp] [  restartedMain] c.notebook.shareApp.ShareAppApplication  : Starting ShareAppApplication using Java 23.0.2 with PID 20188 (C:\Users\WELCOME\Desktop\kavy\Projects\shareApp\target\classes started by WELCOME in C:\Users\WELCOME\Desktop\kavy\Projects\shareApp)
+2026-09-21T01:00:22.554+05:30  INFO 20188 --- [shareApp] [  restartedMain] c.notebook.shareApp.ShareAppApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-09-21T01:00:22.628+05:30  INFO 20188 --- [shareApp] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-09-21T01:00:22.628+05:30  INFO 20188 --- [shareApp] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-09-21T01:00:23.590+05:30  INFO 20188 --- [shareApp] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-21T01:00:23.665+05:30  INFO 20188 --- [shareApp] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59 ms. Found 2 JPA repository interfaces.
+2026-09-21T01:00:24.348+05:30  INFO 20188 --- [shareApp] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8081 (http)
+2026-09-21T01:00:24.408+05:30  INFO 20188 --- [shareApp] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-21T01:00:24.411+05:30  INFO 20188 --- [shareApp] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-21T01:00:24.540+05:30  INFO 20188 --- [shareApp] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1911 ms
+2026-09-21T01:00:25.095+05:30  INFO 20188 --- [shareApp] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-21T01:00:25.342+05:30  INFO 20188 --- [shareApp] [  restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-09-21T01:00:27.078+05:30  INFO 20188 --- [shareApp] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-21T01:00:27.207+05:30  INFO 20188 --- [shareApp] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-21T01:00:28.534+05:30  INFO 20188 --- [shareApp] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@76fe6463
+2026-09-21T01:00:28.542+05:30  INFO 20188 --- [shareApp] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-21T01:00:28.681+05:30  WARN 20188 --- [shareApp] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-21T01:00:28.736+05:30  INFO 20188 --- [shareApp] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/notebook]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.46
+	Default catalog/schema: notebook/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-21T01:00:31.580+05:30  INFO 20188 --- [shareApp] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-21T01:00:31.672+05:30  INFO 20188 --- [shareApp] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-21T01:00:31.775+05:30  INFO 20188 --- [shareApp] [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-21T01:00:32.178+05:30  WARN 20188 --- [shareApp] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-21T01:00:32.639+05:30  INFO 20188 --- [shareApp] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8081 (http) with context path '/'
+2026-09-21T01:00:32.644+05:30  INFO 20188 --- [shareApp] [  restartedMain] c.notebook.shareApp.ShareAppApplication  : Started ShareAppApplication in 10.621 seconds (process running for 11.318)
