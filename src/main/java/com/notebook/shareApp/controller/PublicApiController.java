@@ -1,73 +1,70 @@
 package com.notebook.shareApp.controller;
 
-import com.notebook.shareApp.dto.BranchResponse;
-import com.notebook.shareApp.dto.StatsResponse;
-import com.notebook.shareApp.payload.OptionResponse;
 import com.notebook.shareApp.payload.RegisterRequest;
-import com.notebook.shareApp.repositories.BranchRepository;
 import com.notebook.shareApp.services.AcademicService;
 import com.notebook.shareApp.services.NoteService;
 import com.notebook.shareApp.services.UserService;
-import com.notebook.shareApp.util.ApiException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
-/** Open endpoints (see SecurityConfig: /api/public/**) used by the login/register, home and explore pages. */
 @RestController
 @RequestMapping("/api/public")
 @RequiredArgsConstructor
 public class PublicApiController {
 
     private final AcademicService academicService;
-    private final UserService userService;
     private final NoteService noteService;
-    private final BranchRepository branchRepository;
+    private final UserService userService;
+
+    @GetMapping("/stats")
+    public Object stats() {
+        return noteService.stats();
+    }
 
     @GetMapping("/universities")
-    public List<OptionResponse> universities() {
+    public Object universities() {
         return academicService.getUniversities();
     }
 
     @GetMapping("/courses")
-    public List<OptionResponse> courses() {
+    public Object courses() {
         return academicService.getCourses();
     }
 
     @GetMapping("/branches")
-    public List<OptionResponse> branches(@RequestParam Long courseId) {
+    public Object branches(@RequestParam Long courseId) {
         return academicService.getBranchesByCourse(courseId);
     }
 
-    /** Every branch with its course, used by the Explore filter chips. */
     @GetMapping("/branches/all")
-    public List<BranchResponse> allBranches() {
-        return branchRepository.findAll().stream()
-                .map(b -> new BranchResponse(b.getId(), b.getName(), b.getCourse().getId(), b.getCourse().getName()))
-                .toList();
-    }
-
-    @GetMapping("/stats")
-    public StatsResponse stats() {
-        return noteService.stats();
+    public Object allBranches() {
+        return academicService.getAllBranches();
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(
+            @Valid @RequestBody RegisterRequest request,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Please check the registration fields."));
+        }
+
         if (!request.getPassword().equals(request.getConfirmPassword())) {
-            throw new com.notebook.shareApp.util.RegistrationException("confirmPassword", "Passwords do not match");
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Passwords do not match."));
         }
-        try {
-            userService.register(request);
-        } catch (org.springframework.dao.DataIntegrityViolationException e) {
-            // two people registering the same username/email at the same instant
-            throw new ApiException(HttpStatus.CONFLICT, "Username, email or roll number is already in use");
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Account created"));
+
+        var user = userService.register(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Map.of("id", user.getId(), "username", user.getUsername()));
     }
 }

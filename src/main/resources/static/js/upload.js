@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function pickFile(file) {
     if (!file) return;
-    if (file.type !== "application/pdf") {
+    const isPdf = file.type === "application/pdf" || /\.pdf$/i.test(file.name || "");
+    if (!isPdf) {
       alert("Please choose a PDF file.");
       return;
     }
@@ -25,13 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     selectedFile = file;
+    document.getElementById("fileError").style.display = "none";
     fileNameEl.textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(1)} MB`;
     fileChip.style.display = "flex";
     dropzone.style.display = "none";
   }
 
   dropzone.addEventListener("click", () => fileInput.click());
-  dropzone.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") fileInput.click(); });
+  dropzone.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); }
+  });
   fileInput.addEventListener("change", () => pickFile(fileInput.files[0]));
 
   ["dragenter", "dragover"].forEach(evt =>

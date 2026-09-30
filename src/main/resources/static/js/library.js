@@ -20,7 +20,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     </div>`;
 
   function show(tabName) {
-    tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === tabName));
+    tabs.forEach(t => {
+      const active = t.dataset.tab === tabName;
+      t.classList.toggle("active", active);
+      t.setAttribute("aria-selected", String(active));
+    });
     if (tabName === "uploads") renderGrid(grid, mine, emptyUploads);
     else renderGrid(grid, [], emptyBookmarks);
   }

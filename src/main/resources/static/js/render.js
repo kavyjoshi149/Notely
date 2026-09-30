@@ -8,7 +8,15 @@ function noteCardHTML(note, opts) {
         <span class="note-tag ${tagClass(note.branch)}">${esc(note.branch)}</span>
         ${opts.trending ? `<span class="badge-trending">${trendingIcon()} Trending</span>` : ""}
       </div>
-      <h3><a href="/notes/${encodeURIComponent(note.id)}">${esc(note.title)}</a></h3>
+
+
+     <a class="note-card-link"
+   href="/notes/${encodeURIComponent(note.id)}"
+   aria-label="Open note: ${esc(note.title)}"></a>
+<h3>${esc(note.title)}</h3>
+
+
+
       <div class="note-code">${esc(note.code)} &middot; ${esc(note.university)}</div>
       <p class="note-desc">${esc(note.description || note.subjectName || "")}</p>
       <div class="note-foot">
@@ -31,6 +39,7 @@ function downloadIcon() {
 }
 
 function renderGrid(el, notes, emptyHTML, opts) {
+  el.setAttribute("aria-busy", "false");
   el.parentElement.querySelector(".empty-state")?.remove();
   if (!notes.length) {
     el.innerHTML = "";
@@ -41,6 +50,7 @@ function renderGrid(el, notes, emptyHTML, opts) {
 }
 
 function renderError(el, message) {
+  el.setAttribute("aria-busy", "false");
   el.parentElement.querySelector(".empty-state")?.remove();
   el.innerHTML = "";
   el.insertAdjacentHTML("afterend",

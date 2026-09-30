@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 
-    @GetMapping("/")
-    public String home() { return "index"; }
-
     @GetMapping("/explore")
     public String explore() { return "explore"; }
 
@@ -22,3 +19,4 @@ public class PageController {
     @GetMapping("/notes/{id}")
     public String noteDetail(@org.springframework.web.bind.annotation.PathVariable Long id) { return "note-detail"; }
 }
+    

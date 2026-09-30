@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function fetchNotes() {
     const q = (input.value || "").trim();
+    grid.setAttribute("aria-busy", "true");
     try {
       const page = await api("/api/notes?size=100&q=" + encodeURIComponent(q));
       notes = page.content;

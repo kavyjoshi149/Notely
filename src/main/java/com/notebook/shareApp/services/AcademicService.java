@@ -38,5 +38,11 @@ public class AcademicService {
                 .map(b -> new OptionResponse(b.getId(), b.getName()))
                 .toList();
     }
+
+    public List<OptionResponse> getAllBranches() {
+        return branchRepository.findAll(Sort.by("name")).stream()
+                .map(branch -> new OptionResponse(branch.getId(), branch.getName()))
+                .toList();
+    }
 }
 
