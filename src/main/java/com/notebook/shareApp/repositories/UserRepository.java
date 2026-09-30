@@ -9,6 +9,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
 
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"university", "course", "branch"})
+    Optional<User> findWithAcademicByUsername(String username);
+
     // allows login with username or email
     Optional<User> findByUsernameOrEmail(String username, String email);
 

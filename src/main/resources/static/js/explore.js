@@ -1,52 +1,61 @@
-/* Explore page: search + branch-chip filtering over NOTES. */
+/* Explore page: server-side search (/api/notes?q=) plus branch-chip filtering. */
 document.addEventListener("DOMContentLoaded", function () {
   const grid = document.getElementById("notes-grid");
   const input = document.getElementById("search-input");
   const chipRow = document.getElementById("chip-row");
-  let activeBranch = "all";
+  let activeBranch = "all";      // branch NAME ("all" or e.g. "CSE"); names repeat across courses, so filter by name
+  let notes = [];
 
   const emptyHTML = `
     <div class="empty-state">
       ${emptyIcon()}
       <h3>No notes match</h3>
       <p>Try a different keyword or branch — or be the first to upload one.</p>
-      <a class="btn btn-primary btn-sm" href="upload.html">Upload a note</a>
+      <a class="btn btn-primary btn-sm" href="/upload">Upload a note</a>
     </div>`;
 
   function apply() {
-    const q = (input.value || "").trim().toLowerCase();
-    const filtered = NOTES.filter(n => {
-      const matchesBranch = activeBranch === "all" || n.branch === activeBranch;
-      const matchesQuery = !q ||
-        n.title.toLowerCase().includes(q) ||
-        n.code.toLowerCase().includes(q) ||
-        n.uploader.toLowerCase().includes(q);
-      return matchesBranch && matchesQuery;
-    });
-    renderGrid(grid, filtered, emptyHTML);
+    const shown = notes.filter(n => activeBranch === "all" || n.branch === activeBranch);
+    renderGrid(grid, shown, emptyHTML);
   }
 
-  BRANCHES.forEach(b => {
+  async function fetchNotes() {
+    const q = (input.value || "").trim();
+    try {
+      const page = await api("/api/notes?size=100&q=" + encodeURIComponent(q));
+      notes = page.content;
+      apply();
+    } catch (e) {
+      renderError(grid, e.message);
+    }
+  }
+
+  function addChip(label, value) {
     const chip = document.createElement("button");
     chip.type = "button";
-    chip.className = "chip" + (b.code === "all" ? " active" : "");
-    chip.textContent = b.label;
+    chip.className = "chip" + (value === "all" ? " active" : "");
+    chip.textContent = label;
     chip.addEventListener("click", () => {
       chipRow.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
       chip.classList.add("active");
-      activeBranch = b.code;
+      activeBranch = value;
       apply();
     });
     chipRow.appendChild(chip);
-  });
+  }
+
+  addChip("All branches", "all");
+  api("/api/public/branches/all").then(branches => {
+    [...new Set(branches.map(b => b.name))].sort().forEach(name => addChip(name, name));
+  }).catch(() => { /* chips are optional */ });
 
   let debounce;
   input.addEventListener("input", () => {
     clearTimeout(debounce);
-    debounce = setTimeout(apply, 150);
+    debounce = setTimeout(fetchNotes, 250);
   });
 
-  apply();
+  fetchNotes();
 });
 
 function emptyIcon() {

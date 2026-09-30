@@ -1,33 +1,49 @@
-/* My Library page: tab between uploads (mine) and bookmarks (mock split of NOTES). */
-document.addEventListener("DOMContentLoaded", function () {
+/* My Library page: profile header from /api/me, "My uploads" from /api/notes/mine. */
+document.addEventListener("DOMContentLoaded", async function () {
   const grid = document.getElementById("library-grid");
   const tabs = document.querySelectorAll(".tab");
-  const mine = NOTES.slice(0, 3);
-  const bookmarked = NOTES.slice(3, 5);
+  let mine = [];
 
   const emptyUploads = `
     <div class="empty-state">
       ${uploadIconLg()}
       <h3>You haven't shared a note yet</h3>
       <p>Upload your first PDF and it will show up here.</p>
-      <a class="btn btn-primary btn-sm" href="upload.html">Upload a note</a>
+      <a class="btn btn-primary btn-sm" href="/upload">Upload a note</a>
     </div>`;
   const emptyBookmarks = `
     <div class="empty-state">
       ${uploadIconLg()}
-      <h3>No bookmarks yet</h3>
-      <p>Save notes you find on Explore to read them later.</p>
-      <a class="btn btn-outline btn-sm" href="explore.html">Browse notes</a>
+      <h3>Bookmarks are coming soon</h3>
+      <p>For now, find notes on Explore and download the ones you need.</p>
+      <a class="btn btn-outline btn-sm" href="/explore">Browse notes</a>
     </div>`;
 
   function show(tabName) {
     tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === tabName));
     if (tabName === "uploads") renderGrid(grid, mine, emptyUploads);
-    else renderGrid(grid, bookmarked, emptyBookmarks);
+    else renderGrid(grid, [], emptyBookmarks);
+  }
+  tabs.forEach(t => t.addEventListener("click", () => show(t.dataset.tab)));
+
+  const me = await loadMe();
+  if (me.authenticated) {
+    document.getElementById("profileAvatar").textContent = me.initials;
+    document.getElementById("profileName").textContent = me.name;
+    document.getElementById("profileHandle").textContent =
+      "@" + me.username + (me.batch ? " · Batch " + me.batch : "");
+    const tags = document.getElementById("profileTags");
+    tags.innerHTML = [me.branch, me.university].filter(Boolean)
+      .map(t => `<span class="note-tag ${tagClass(t)}">${esc(t)}</span>`).join("");
   }
 
-  tabs.forEach(t => t.addEventListener("click", () => show(t.dataset.tab)));
-  show("uploads");
+  try {
+    mine = (await api("/api/notes/mine")).content;
+    show("uploads");
+  } catch (e) {
+    if (e.status === 401) { location.href = "/login"; return; }
+    renderError(grid, e.message);
+  }
 });
 
 function uploadIconLg() {
